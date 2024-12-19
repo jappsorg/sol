@@ -1,39 +1,87 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { PaperProvider, MD3LightTheme } from "react-native-paper";
+import { useCallback } from "react";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+  const [fontsLoaded, fontError] = useFonts({
+    "Roboto-Regular": require("../assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("../assets/fonts/Roboto-Bold.ttf"),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded || fontError) {
+      await SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [fontsLoaded, fontError]);
 
-  if (!loaded) {
+  if (!fontsLoaded && !fontError) {
     return null;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <PaperProvider theme={MD3LightTheme}>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <Stack>
+          <Stack.Screen
+            name="home"
+            options={{
+              title: "Spelling Bee",
+              headerStyle: {
+                backgroundColor: MD3LightTheme.colors.primary,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontFamily: "Roboto-Bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="levels/index"
+            options={{
+              title: "Select Mode",
+              headerStyle: {
+                backgroundColor: MD3LightTheme.colors.primary,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontFamily: "Roboto-Bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="practice/[grade]"
+            options={{
+              title: "Practice Mode",
+              headerStyle: {
+                backgroundColor: MD3LightTheme.colors.primary,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontFamily: "Roboto-Bold",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="quiz/[grade]"
+            options={{
+              title: "Quiz Mode",
+              headerStyle: {
+                backgroundColor: MD3LightTheme.colors.primary,
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontFamily: "Roboto-Bold",
+              },
+            }}
+          />
+        </Stack>
+      </View>
+    </PaperProvider>
   );
 }

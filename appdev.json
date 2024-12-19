@@ -1,0 +1,19 @@
+{
+  "name": "kidsspellingbee",
+  "initialPrompt": "a spelling bee app for kids using anthropic sdk. app should have levels based on kids grade to generate words",
+  "components": "[{\"name\":\"Layout\",\"type\":\"layout\",\"purpose\":\"Main layout component with navigation setup\",\"path\":\"app/_layout.tsx\",\"dependsOn\":[]},{\"name\":\"HomeScreen\",\"type\":\"screen\",\"purpose\":\"Main screen with grade selection\",\"path\":\"app/home.tsx\",\"dependsOn\":[\"GradeCard\",\"StorageUtil\"]},{\"name\":\"LevelsScreen\",\"type\":\"screen\",\"purpose\":\"Screen to choose between practice and quiz modes\",\"path\":\"app/levels/index.tsx\",\"dependsOn\":[]},{\"name\":\"PracticeScreen\",\"type\":\"screen\",\"purpose\":\"Practice mode screen for specific grade\",\"path\":\"app/practice/[grade].tsx\",\"dependsOn\":[\"WordDisplay\",\"ScoreBoard\",\"AnswerInput\",\"AnthropicService\",\"StorageUtil\"]},{\"name\":\"QuizScreen\",\"type\":\"screen\",\"purpose\":\"Quiz mode screen for specific grade\",\"path\":\"app/quiz/[grade].tsx\",\"dependsOn\":[\"WordDisplay\",\"ScoreBoard\",\"AnswerInput\",\"AnthropicService\",\"StorageUtil\"]},{\"name\":\"GradeCard\",\"type\":\"ui_component\",\"purpose\":\"Displays grade selection card with progress\",\"path\":\"components/GradeCard.tsx\",\"dependsOn\":[\"Types\"]},{\"name\":\"WordDisplay\",\"type\":\"ui_component\",\"purpose\":\"Displays current word and pronunciation button\",\"path\":\"components/WordDisplay.tsx\",\"dependsOn\":[\"SpeechService\",\"Types\"]},{\"name\":\"ScoreBoard\",\"type\":\"ui_component\",\"purpose\":\"Displays current score and progress\",\"path\":\"components/ScoreBoard.tsx\",\"dependsOn\":[\"Types\"]},{\"name\":\"AnswerInput\",\"type\":\"ui_component\",\"purpose\":\"Input component for spelling answers\",\"path\":\"components/AnswerInput.tsx\",\"dependsOn\":[]},{\"name\":\"AnthropicService\",\"type\":\"service\",\"purpose\":\"Service for generating grade-appropriate words using Anthropic SDK\",\"path\":\"services/AnthropicService.ts\",\"dependsOn\":[\"Types\"]},{\"name\":\"SpeechService\",\"type\":\"service\",\"purpose\":\"Service for text-to-speech functionality\",\"path\":\"services/SpeechService.ts\",\"dependsOn\":[]},{\"name\":\"StorageUtil\",\"type\":\"util\",\"purpose\":\"Utility for managing local storage operations\",\"path\":\"utils/StorageUtil.ts\",\"dependsOn\":[\"Types\"]},{\"name\":\"Types\",\"type\":\"model\",\"purpose\":\"TypeScript type definitions\",\"path\":\"models/Types.ts\",\"dependsOn\":[]}]",
+  "features": [
+    "Grade-based level selection (Grades 1-5)",
+    "Word generation using Anthropic SDK based on grade level",
+    "Text-to-speech for word pronunciation",
+    "Visual feedback for correct/incorrect answers",
+    "Score tracking and progress storage",
+    "Simple and engaging UI for kids",
+    "Local storage for saving progress and scores",
+    "Practice mode and quiz mode"
+  ],
+  "type": "mobile",
+  "modelProvider": "Anthropic",
+  "languageModel": "claude-3-5-sonnet-latest",
+  "version": "0.0.6"
+}
